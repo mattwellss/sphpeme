@@ -1,0 +1,15 @@
+{
+    "name": "sphpeme/sphpeme",
+    "license": "MIT",
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4"
+    },
+    "autoload": {
+        "files": [
+            "sphpeme.php"
+        ]
+    }
+}
