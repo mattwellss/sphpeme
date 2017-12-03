@@ -22,7 +22,7 @@ return (function () {
             : $a - current($args);
     };
 
-    return (object)[
+    $env = [
         '+' => $plus,
         '*' => $mult,
         '-' => $subtr,
@@ -63,4 +63,10 @@ return (function () {
         }
     ];
 
+    $re = new \Sphpeme\Env();
+    foreach ($env as $name => $value) {
+        $re->$name = $value;
+    }
+
+    return $re;
 })();

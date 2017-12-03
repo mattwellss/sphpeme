@@ -14,7 +14,7 @@
 
   <filter>
     <whitelist processUncoveredFilesFromWhitelist="false">
-      <file>sphpeme.php</file>
+      <directory>Sphpeme</directory>
     </whitelist>
   </filter>
 </phpunit>
