@@ -25,33 +25,20 @@ class ScalarHandlerTest extends TestCase
         $this->eval = new \Sphpeme\Evaluator();
     }
 
-    public function testEvaluateString()
+    public function testEvaluate()
     {
         static::assertEquals('string', $this->subj->evaluate('string', $this->env, $this->eval));
-    }
-
-    public function testHandlesString()
-    {
-        static::assertTrue($this->subj->handles('string'));
-    }
-
-    public function testEvaluateInt()
-    {
+        static::assertTrue($this->subj->evaluate(true, $this->env, $this->eval));
         static::assertEquals(10, $this->subj->evaluate(10, $this->env, $this->eval));
-    }
-
-    public function testHandlesInt()
-    {
-        static::assertTrue($this->subj->handles(10));
-    }
-
-    public function testEvaluateFloat()
-    {
         static::assertEquals(1.1, $this->subj->evaluate(1.1, $this->env, $this->eval));
     }
 
-    public function testHandlesFloat()
+    public function testHandles()
     {
+        static::assertTrue($this->subj->handles('string'));
+        static::assertTrue($this->subj->handles(10));
         static::assertTrue($this->subj->handles(1.1));
+        static::assertTrue($this->subj->handles(true));
     }
+
 }

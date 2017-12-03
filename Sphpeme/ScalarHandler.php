@@ -12,6 +12,6 @@ class ScalarHandler implements ExpHandler
 
     public function handles($exp): bool
     {
-        return \is_numeric($exp) || \is_string($exp);
+        return \is_scalar($exp);
     }
 }
