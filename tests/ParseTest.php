@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Lisp;
+namespace tests\Sphpeme;
 
 use function Sphpeme\parse;
 

@@ -67,11 +67,11 @@ function parse(array $tokens): array
 /**
  * Extend the given env with the extension values
  *
- * @param \stdClass $env
+ * @param Env $env
  * @param array $extends
- * @return \stdClass
+ * @return Env
  */
-function env_extend(\stdClass $env, array $extends)
+function env_extend(Env $env, array $extends)
 {
     $myenv = clone $env;
     foreach ($extends as $key => $value) {
@@ -81,61 +81,13 @@ function env_extend(\stdClass $env, array $extends)
     return $myenv;
 }
 
-/**
- * evaluate the AST with the env
- *
- * @param string|int|float|array $exp
- * @param \stdClass $env
- * @return mixed
- */
-function evaluate($exp, \stdClass $env)
-{
-    if ($exp instanceof Symbol) {
-        return $env->$exp;
-    }
-
-    if (\is_numeric($exp) || \is_string($exp)) {
-        return $exp;
-    }
-
-    // special forms
-    if ($exp[0] == 'if') {
-        [$if, $test, $true, $false] = $exp;
-
-        return evaluate(
-            evaluate($test, $env)
-                ? $true
-                : $false,
-            $env);
-    }
-
-    if ($exp[0] == 'lambda') {
-        [$lambda, $params, $body] = $exp;
-        return function (...$args) use ($env, $body, $params) {
-            return evaluate($body, env_extend($env, array_combine($params, $args)));
-        };
-    }
-
-    if ($exp[0] == 'define') {
-        [$_, $symbol, $exp] = $exp;
-        $env->$symbol = evaluate($exp, $env);
-    } else {
-        $call = evaluate($exp[0], $env);
-        $args = [];
-        foreach (\array_slice($exp, 1) as $arg) {
-            $args[] = evaluate($arg, $env);
-        }
-
-        return $call(...$args);
-    }
-}
 
 /**
  * Provides access to Sphpeme's std env
  *
- * @return \stdClass
+ * @return Env
  */
-function get_std_env(): \stdClass
+function get_std_env(): Env
 {
     return require __DIR__ . '/stdenv.php';
 }

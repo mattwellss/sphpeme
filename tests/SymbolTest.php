@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Lisp;
+namespace tests\Sphpeme;
 
 use PHPUnit\Framework\TestCase;
 use Sphpeme\Symbol;
