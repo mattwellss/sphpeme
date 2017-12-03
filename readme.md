@@ -72,3 +72,9 @@ maybe.
 ### Modularity
 
 The std env is pretty messy now, and should probably be separated by category.
+
+## Credits
+
+Much of the work here is simply a translation of Peter Norvig's excellent
+article, [*(How to Write a (Lisp) Interpreter in(Python))*]
+(http://norvig.com/lispy.html)
