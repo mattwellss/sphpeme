@@ -2,6 +2,8 @@
 
 A dumb slow Scheme running inside php
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mattwellss/sphpeme/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mattwellss/sphpeme/?branch=master)
+
 ## Usage
 
 The file `sphpeme.php` is autoloaded, so all the functions therein there are
