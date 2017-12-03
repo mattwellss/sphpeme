@@ -3,9 +3,9 @@
 namespace Sphpeme;
 
 
-use Sphpeme\Evaluator\SpecialForm;
+use Sphpeme\ExpHandler;
 
-class DefineSpecialForm implements SpecialForm
+class DefineExpHandler implements ExpHandler
 {
     public function evaluate($exp, Env $env, Evaluator $evaluate)
     {

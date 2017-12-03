@@ -4,14 +4,14 @@ namespace tests\Sphpeme\Evaluator;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Sphpeme\DefineSpecialForm;
+use Sphpeme\DefineExpHandler;
 use Sphpeme\Env;
 use Sphpeme\Evaluator;
 use Sphpeme\Symbol;
 
 class DefineSpecialFormTest extends TestCase
 {
-    /** @var DefineSpecialForm */
+    /** @var DefineExpHandler */
     private $subj;
     private $env;
     private $exp;
@@ -20,7 +20,7 @@ class DefineSpecialFormTest extends TestCase
     protected function setUp()
     {
         $this->env = $this->prophesize(Env::class);
-        $this->subj = new DefineSpecialForm();
+        $this->subj = new DefineExpHandler();
         $this->exp = [new Symbol('define'), new Symbol('x'), 10];
         $this->eval = $this->prophesize(Evaluator::class);
         $this->eval->__invoke(10, Argument::type(Env::class))->willReturn(10);

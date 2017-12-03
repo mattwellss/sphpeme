@@ -6,12 +6,12 @@ namespace tests\Sphpeme\Evaluator;
 use PHPUnit\Framework\TestCase;
 use Sphpeme\Env;
 use Sphpeme\Evaluator;
-use Sphpeme\LambdaSpecialForm;
+use Sphpeme\LambdaExpHandler;
 use Sphpeme\Symbol;
 
 class LambdaSpecialFormTest extends TestCase
 {
-    /** @var LambdaSpecialForm */
+    /** @var LambdaExpHandler */
     private $subj;
     private $env;
     private $exp;
@@ -20,7 +20,7 @@ class LambdaSpecialFormTest extends TestCase
     protected function setUp()
     {
         $this->env = $this->prophesize(Env::class);
-        $this->subj = new LambdaSpecialForm();
+        $this->subj = new LambdaExpHandler();
         $this->exp = [new Symbol('lambda'), [], [new Symbol('+'), 1, 2, 3]];
         $this->eval = $this->prophesize(Evaluator::class);
     }

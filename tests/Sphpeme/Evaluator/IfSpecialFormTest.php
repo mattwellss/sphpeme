@@ -6,12 +6,12 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Sphpeme\Env;
 use Sphpeme\Evaluator;
-use Sphpeme\IfSpecialForm;
+use Sphpeme\IfExpHandler;
 use Sphpeme\Symbol;
 
 class IfSpecialFormTest extends TestCase
 {
-    /** @var IfSpecialForm */
+    /** @var IfExpHandler */
     private $subj;
     private $env;
     private $exp;
@@ -20,7 +20,7 @@ class IfSpecialFormTest extends TestCase
     protected function setUp()
     {
         $this->env = $this->prophesize(Env::class);
-        $this->subj = new IfSpecialForm();
+        $this->subj = new IfExpHandler();
         $this->exp = [new Symbol('if'), 1 , 42, 10];
         $this->eval = $this->prophesize(Evaluator::class);
         $this->eval->__invoke(1, Argument::type(Env::class))->willReturn(1);

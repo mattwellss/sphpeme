@@ -3,9 +3,7 @@
 namespace Sphpeme;
 
 
-use Sphpeme\Evaluator\SpecialForm;
-
-class IfSpecialForm implements SpecialForm
+class IfExpHandler implements ExpHandler
 {
     public function evaluate($exp, Env $env, Evaluator $evaluate)
     {

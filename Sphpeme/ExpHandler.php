@@ -1,12 +1,12 @@
 <?php
 
-namespace Sphpeme\Evaluator;
+namespace Sphpeme;
 
 
 use Sphpeme\Env;
 use Sphpeme\Evaluator;
 
-interface SpecialForm
+interface ExpHandler
 {
     public function handles($program): bool;
     public function evaluate($program, Env $env, Evaluator $evaluate);

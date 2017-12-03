@@ -6,28 +6,26 @@ namespace Sphpeme;
 class Evaluator
 {
     /**
-     * @var Evaluator\SpecialForm[]
+     * @var ExpHandler[]
      */
-    private $specialForms;
+    private $handlers;
 
-    public function __construct(Evaluator\SpecialForm ...$specialForms)
+    public function __construct(ExpHandler ...$handlers)
     {
-        $this->specialForms = $specialForms;
+        if (\count($handlers) === 0) {
+            $handlers = [
+                new SymbolHandler(),
+                new ScalarHandler(),
+            ];
+        }
+        $this->handlers = $handlers;
     }
 
     public function __invoke($exp, Env $env)
     {
-        if ($exp instanceof Symbol) {
-            return $env->$exp;
-        }
-
-        if (\is_numeric($exp) || \is_string($exp)) {
-            return $exp;
-        }
-
-        foreach ($this->specialForms as $specialForm) {
-            if ($specialForm->handles($exp)) {
-                return $specialForm->evaluate($exp, $env, $this);
+        foreach ($this->handlers as $handler) {
+            if ($handler->handles($exp)) {
+                return $handler->evaluate($exp, $env, $this);
             }
         }
 

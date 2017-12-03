@@ -7,6 +7,7 @@ use Sphpeme\Env;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sphpeme\Evaluator;
+use Sphpeme\ExpHandler;
 use Sphpeme\Symbol;
 
 class EvaluatorTest extends TestCase
@@ -30,19 +31,9 @@ class EvaluatorTest extends TestCase
         ($this->subj)([new Symbol('+'), 1, 2, 3], $this->env->reveal());
     }
 
-    public function testSymbol()
-    {
-        // Define a symbol and its existence in env
-        $v = $this->prophesize(Symbol::class);
-        $v->__toString()->willReturn('hello');
-        $this->env->hello = true;
-
-        static::assertTrue(($this->subj)($v->reveal(), $this->env->reveal()));
-    }
-
     public function testSpecialForms()
     {
-        $special = $this->prophesize(Evaluator\SpecialForm::class);
+        $special = $this->prophesize(ExpHandler::class);
         $special->handles(Argument::type('array'))->willReturn(true);
         $special->evaluate(
             Argument::type('array'),
