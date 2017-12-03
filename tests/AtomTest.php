@@ -5,6 +5,7 @@ namespace tests\Lisp;
 use function Sphpeme\atom;
 
 use PHPUnit\Framework\TestCase;
+use Sphpeme\Symbol;
 
 class AtomTest extends TestCase
 {
@@ -20,6 +21,13 @@ class AtomTest extends TestCase
 
     public function testString()
     {
-        static::assertEquals('asdf', atom('asdf'));
+        static::assertEquals('asdf', atom('"asdf"'));
+    }
+
+    public function testSymbol()
+    {
+        $sym = atom('symbol');
+        static::assertInstanceOf(Symbol::class, $sym);
+        static::assertEquals('symbol', $sym);
     }
 }

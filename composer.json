@@ -9,7 +9,10 @@
     },
     "autoload": {
         "files": [
-            "sphpeme.php"
-        ]
+            "./Sphpeme/sphpeme.php"
+        ],
+        "psr-4": {
+            "Sphpeme\\": "./Sphpeme/"
+        }
     }
 }

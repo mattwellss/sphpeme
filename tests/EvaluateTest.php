@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\MethodProphecy;
 use Prophecy\Prophecy\ObjectProphecy;
+use Sphpeme\Symbol;
 
 class EvaluateTest extends TestCase
 {
@@ -24,7 +25,7 @@ class EvaluateTest extends TestCase
         $this->env->{'+'} = function (...$args) {
             static::assertEquals([1, 2, 3], $args);
         };
-        evaluate(['+', 1, 2, 3], $this->env->reveal());
+        evaluate([new Symbol('+'), 1, 2, 3], $this->env->reveal());
     }
 
     public function testLambda()
@@ -33,7 +34,7 @@ class EvaluateTest extends TestCase
             static::assertEquals([1,2,3], $args);
         };
 
-        $lambda = evaluate(['lambda', [], ['+', 1, 2, 3]], $this->env->reveal());
+        $lambda = evaluate([new Symbol('lambda'), [], [new Symbol('+'), 1, 2, 3]], $this->env->reveal());
 
         static::assertInstanceOf(\Closure::class, $lambda);
         $lambda();

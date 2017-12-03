@@ -6,7 +6,7 @@ namespace Sphpeme;
  * Parse the given value as its scalar type
  *
  * @param $val
- * @return float|int|string
+ * @return mixed
  */
 function atom($val)
 {
@@ -16,7 +16,11 @@ function atom($val)
             : (int)$val;
     }
 
-    return $val;
+    if (strpos($val, '"') === 0) {
+        return str_replace('"', '', $val);
+    }
+
+    return new Symbol($val);
 }
 
 /**
@@ -86,16 +90,16 @@ function env_extend(\stdClass $env, array $extends)
  */
 function evaluate($exp, \stdClass $env)
 {
-    if (\is_string($exp)) {
+    if ($exp instanceof Symbol) {
         return $env->$exp;
     }
 
-    if (\is_numeric($exp)) {
+    if (\is_numeric($exp) || \is_string($exp)) {
         return $exp;
     }
 
     // special forms
-    if ($exp[0] === 'if') {
+    if ($exp[0] == 'if') {
         [$if, $test, $true, $false] = $exp;
 
         return evaluate(
@@ -105,14 +109,14 @@ function evaluate($exp, \stdClass $env)
             $env);
     }
 
-    if ($exp[0] === 'lambda') {
+    if ($exp[0] == 'lambda') {
         [$lambda, $params, $body] = $exp;
         return function (...$args) use ($env, $body, $params) {
             return evaluate($body, env_extend($env, array_combine($params, $args)));
         };
     }
 
-    if ($exp[0] === 'define') {
+    if ($exp[0] == 'define') {
         [$_, $symbol, $exp] = $exp;
         $env->$symbol = evaluate($exp, $env);
     } else {
