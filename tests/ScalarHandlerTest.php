@@ -4,6 +4,7 @@
  * Date: 2017-12-03 14:58 PM
  */
 
+use Sphpeme\Scalar;
 use Sphpeme\ScalarHandler;
 use PHPUnit\Framework\TestCase;
 
@@ -27,18 +28,18 @@ class ScalarHandlerTest extends TestCase
 
     public function testEvaluate()
     {
-        static::assertEquals('string', $this->subj->evaluate('string', $this->env, $this->eval));
-        static::assertTrue($this->subj->evaluate(true, $this->env, $this->eval));
-        static::assertEquals(10, $this->subj->evaluate(10, $this->env, $this->eval));
-        static::assertEquals(1.1, $this->subj->evaluate(1.1, $this->env, $this->eval));
+        static::assertEquals('string', $this->subj->evaluate(new Scalar('string'), $this->env, $this->eval));
+        static::assertTrue($this->subj->evaluate(new Scalar(true), $this->env, $this->eval));
+        static::assertEquals(10, $this->subj->evaluate(new Scalar(10), $this->env, $this->eval));
+        static::assertEquals(1.1, $this->subj->evaluate(new Scalar(1.1), $this->env, $this->eval));
     }
 
     public function testHandles()
     {
-        static::assertTrue($this->subj->handles('string'));
-        static::assertTrue($this->subj->handles(10));
-        static::assertTrue($this->subj->handles(1.1));
-        static::assertTrue($this->subj->handles(true));
+        static::assertTrue($this->subj->handles(new Scalar('string')));
+        static::assertTrue($this->subj->handles(new Scalar(10)));
+        static::assertTrue($this->subj->handles(new Scalar(1.1)));
+        static::assertTrue($this->subj->handles(new Scalar(true)));
     }
 
 }
