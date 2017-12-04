@@ -11,17 +11,26 @@ class AtomTest extends TestCase
 {
     public function testInt()
     {
-        static::assertEquals(1, atom('1'));
+        $one = atom(1);
+        static::assertEquals(1, $one->getValue());
     }
 
     public function testFloat()
     {
-        static::assertEquals(3.3, atom('3.3'));
+        $threpointthree = atom('3.3');
+        static::assertEquals(3.3, $threpointthree->getValue());
     }
 
     public function testString()
     {
-        static::assertEquals('asdf', atom('"asdf"'));
+        $asdf = atom('"asdf"');
+        static::assertEquals('asdf', $asdf->getValue());
+    }
+
+    public function testBool()
+    {
+        $true = atom(true);
+        static::assertEquals(true, $true->getValue());
     }
 
     public function testSymbol()
