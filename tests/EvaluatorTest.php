@@ -7,7 +7,7 @@ use Sphpeme\Env;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sphpeme\Evaluator;
-use Sphpeme\ExpHandler;
+use Sphpeme\ExpHandler\ExpHandler;
 use Sphpeme\Scalar;
 use Sphpeme\Symbol;
 
@@ -29,7 +29,7 @@ class EvaluatorTest extends TestCase
         $this->env->{'+'} = function (...$args) {
             static::assertEquals([1, 2, 3], $args);
         };
-        ($this->subj)([new Symbol('+'), new Scalar(1), new Scalar(2), new Scalar(3)], $this->env->reveal());
+        $this->subj->__invoke([new Symbol('+'), new Scalar(1), new Scalar(2), new Scalar(3)], $this->env->reveal());
     }
 
     public function testSpecialForms()

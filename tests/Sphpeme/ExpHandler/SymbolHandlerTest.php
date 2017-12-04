@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use Sphpeme\Env;
 use Sphpeme\Symbol;
-use Sphpeme\SymbolHandler;
+use Sphpeme\ExpHandler\SymbolHandler;
 
 class SymbolHandlerTest extends TestCase
 {

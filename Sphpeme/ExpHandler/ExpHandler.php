@@ -1,6 +1,6 @@
 <?php
 
-namespace Sphpeme;
+namespace Sphpeme\ExpHandler;
 
 
 use Sphpeme\Env;

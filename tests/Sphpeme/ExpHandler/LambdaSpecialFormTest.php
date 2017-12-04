@@ -6,7 +6,7 @@ namespace tests\Sphpeme\Evaluator;
 use PHPUnit\Framework\TestCase;
 use Sphpeme\Env;
 use Sphpeme\Evaluator;
-use Sphpeme\LambdaExpHandler;
+use Sphpeme\ExpHandler\LambdaExpHandler;
 use Sphpeme\Symbol;
 
 class LambdaSpecialFormTest extends TestCase

@@ -1,9 +1,12 @@
 <?php
 
-namespace Sphpeme;
+namespace Sphpeme\ExpHandler;
 
 
-use Sphpeme\ExpHandler;
+use Sphpeme\Env;
+use function Sphpeme\env_extend;
+use Sphpeme\Evaluator;
+use Sphpeme\Symbol;
 
 class LambdaExpHandler implements ExpHandler
 {

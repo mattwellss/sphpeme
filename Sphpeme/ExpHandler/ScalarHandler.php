@@ -1,7 +1,11 @@
 <?php
 
-namespace Sphpeme;
+namespace Sphpeme\ExpHandler;
 
+
+use Sphpeme\Env;
+use Sphpeme\Evaluator;
+use Sphpeme\Scalar;
 
 class ScalarHandler implements ExpHandler
 {

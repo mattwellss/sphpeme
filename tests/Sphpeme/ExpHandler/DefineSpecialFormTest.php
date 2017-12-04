@@ -4,9 +4,9 @@ namespace tests\Sphpeme\Evaluator;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use Sphpeme\DefineExpHandler;
 use Sphpeme\Env;
 use Sphpeme\Evaluator;
+use Sphpeme\ExpHandler\DefineExpHandler;
 use Sphpeme\Symbol;
 
 class DefineSpecialFormTest extends TestCase

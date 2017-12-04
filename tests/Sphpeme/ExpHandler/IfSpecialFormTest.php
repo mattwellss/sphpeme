@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Sphpeme\Env;
 use Sphpeme\Evaluator;
-use Sphpeme\IfExpHandler;
+use Sphpeme\ExpHandler\IfExpHandler;
 use Sphpeme\Symbol;
 
 class IfSpecialFormTest extends TestCase

@@ -4,8 +4,8 @@
  * Date: 2017-12-03 14:58 PM
  */
 
+use Sphpeme\ExpHandler\ScalarHandler;
 use Sphpeme\Scalar;
-use Sphpeme\ScalarHandler;
 use PHPUnit\Framework\TestCase;
 
 class ScalarHandlerTest extends TestCase

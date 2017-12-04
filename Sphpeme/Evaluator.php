@@ -3,6 +3,10 @@
 namespace Sphpeme;
 
 
+use Sphpeme\ExpHandler\ExpHandler;
+use Sphpeme\ExpHandler\ScalarHandler;
+use Sphpeme\ExpHandler\SymbolHandler;
+
 class Evaluator
 {
     /**

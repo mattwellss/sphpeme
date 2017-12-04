@@ -1,9 +1,12 @@
 <?php
 
-namespace Sphpeme;
+namespace Sphpeme\ExpHandler;
 
 
-use Sphpeme\ExpHandler;
+
+use Sphpeme\Env;
+use Sphpeme\Evaluator;
+use Sphpeme\Symbol;
 
 class DefineExpHandler implements ExpHandler
 {
