@@ -11,13 +11,17 @@ namespace Sphpeme;
 function atom($val)
 {
     if (is_numeric($val)) {
-        return strpos($val, '.')
+        return new Scalar(strpos($val, '.')
             ? (float)$val
-            : (int)$val;
+            : (int)$val);
     }
 
     if (strpos($val, '"') === 0) {
-        return str_replace('"', '', $val);
+        return new Scalar(str_replace('"', '', $val));
+    }
+
+    if (\is_bool($val)) {
+        return new Scalar($val);
     }
 
     return new Symbol($val);
