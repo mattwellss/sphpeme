@@ -24,7 +24,7 @@ function atom($val)
         return new Scalar($val);
     }
 
-    return new Symbol($val);
+    return Symbol::make($val);
 }
 
 /**

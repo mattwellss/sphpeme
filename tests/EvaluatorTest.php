@@ -29,7 +29,25 @@ class EvaluatorTest extends TestCase
         $this->env->{'+'} = function (...$args) {
             static::assertEquals([1, 2, 3], $args);
         };
-        $this->subj->__invoke([new Symbol('+'), new Scalar(1), new Scalar(2), new Scalar(3)], $this->env->reveal());
+
+        $plus = $this->prophesize(Symbol::class);
+        $plus->__toString()
+            ->willReturn('+');
+
+        $one = $this->prophesize(Scalar::class);
+        $one->getValue()
+            ->willReturn(1);
+
+        $two = $this->prophesize(Scalar::class);
+        $two->getValue()
+            ->willReturn(2);
+
+        $three = $this->prophesize(Scalar::class);
+        $three->getValue()
+            ->willReturn(3);
+
+        $this->subj->__invoke([$plus->reveal(), $one->reveal(), $two->reveal(), $three->reveal(),],
+            $this->env->reveal());
     }
 
     public function testSpecialForms()
@@ -40,7 +58,11 @@ class EvaluatorTest extends TestCase
             Argument::type('array'),
             Argument::type(Env::class),
             Argument::type(Evaluator::class))->shouldBeCalled();
-        $exp = [new Symbol('asdf')];
+
+        $symbol = $this->prophesize(Symbol::class);
+
+        $exp = [$symbol->reveal()];
+
         $subj = new Evaluator($special->reveal());
         $subj($exp, $this->env->reveal());
     }
