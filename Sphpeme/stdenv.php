@@ -13,7 +13,7 @@ return (function () {
     $mult = function ($a, ...$args) use(&$mult) {
         return \count($args) > 1
             ? $a * $mult(...$args)
-            : $a + current($args);
+            : $a * current($args);
     };
 
     $subtr = function ($a, ...$args) use(&$subtr) {
