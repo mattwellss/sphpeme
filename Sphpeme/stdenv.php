@@ -50,7 +50,7 @@ return (function () {
         },
         'display' => function ($arg) {
             if (\is_array($arg)) {
-                var_dump($arg);
+                var_export($arg);
             } else {
                 echo $arg;
             }
