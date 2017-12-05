@@ -10,7 +10,7 @@ class SymbolHandlerTest extends TestCase
     /** @var SymbolHandler */
     private $subj;
 
-    /** @var Symbol */
+    /** @var \Prophecy\Prophecy\ObjectProphecy|Symbol */
     private $exp;
 
     /** @var Env */
@@ -19,7 +19,8 @@ class SymbolHandlerTest extends TestCase
     public function setUp()
     {
         $this->subj = new SymbolHandler();
-        $this->exp = new Symbol('hello');
+        $this->exp = $this->prophesize(Symbol::class);
+        $this->exp->__toString()->willReturn('hello');
         $this->env = new Env;
         $this->env->hello = true;
     }
@@ -27,12 +28,12 @@ class SymbolHandlerTest extends TestCase
 
     public function testEvaluate()
     {
-        static::assertTrue($this->subj->evaluate($this->exp, $this->env, new \Sphpeme\Evaluator()));
+        static::assertTrue($this->subj->evaluate($this->exp->reveal(), $this->env, new \Sphpeme\Evaluator()));
 
     }
 
     public function testHandles()
     {
-        static::assertTrue($this->subj->handles($this->exp));
+        static::assertTrue($this->subj->handles($this->exp->reveal()));
     }
 }
