@@ -1,0 +1,114 @@
+<?php
+
+namespace Sphpeme;
+
+class Reader
+{
+    private $tokenizeRegexp = '/\s*(,@|[(\'`,)]|"(?:[\\].|[^\\"])*"|;.*|[^\s(\'"`,;)]*)(.*)/';
+    private $file;
+    private $line = '';
+
+
+    private $quotes;
+
+    public function __construct($file)
+    {
+        if (!\is_resource($file) || get_resource_type($file) !== 'stream') {
+            throw new \InvalidArgumentException('Must give me a file stream');
+        }
+
+        $this->quotes = [
+            '\'' => Symbol::make('quote'),
+            '``' => Symbol::make('quasiquote'),
+            ',' => Symbol::make('unquote'),
+            ',@' => Symbol::make('unquote-splicing'),
+        ];
+
+        $this->file = $file;
+    }
+
+    /**
+     * @param $token
+     * @return array|mixed
+     * @throws \Exception
+     */
+    private function readAhead($token)
+    {
+        $this->guardAgainstUnexpectedEof($token);
+        $this->guardAgainstInvalidExpression($token);
+
+        if ($token === '(') {
+            $l = [];
+            while (true) {
+                $token = $this->nextToken();
+                if ($token === ')') {
+                    return $l;
+                }
+
+                $l[] = $this->readAhead($token);
+            }
+        }
+
+
+        if (isset($this->quotes[$token])) {
+            return [$this->quotes[$token], $this->read()];
+        }
+
+        return atom($token);
+    }
+
+    public function read()
+    {
+        $first = $this->nextToken();
+
+        return $first !== false
+            ? $this->readAhead($first)
+            : false;
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function nextToken()
+    {
+        while (true) {
+            if ($this->line === '') {
+                $this->line = fgets($this->file);
+            }
+
+            if ($this->line === false) {
+                return $this->line;
+            }
+
+            preg_match($this->tokenizeRegexp, $this->line, $matches);
+
+            [$_, $token, $this->line] = $matches;
+
+            if ($token !== ';' || $token !== '') {
+                return $token;
+            }
+        }
+    }
+
+    /**
+     * @param $token
+     * @throws \Exception
+     */
+    private function guardAgainstUnexpectedEof($token): void
+    {
+        if ($token === false) {
+            throw new \Exception('unexpected eof!');
+        }
+    }
+
+    /**
+     * @param $token
+     * @throws \Exception
+     */
+    private function guardAgainstInvalidExpression($token): void
+    {
+        if ($token === ')') {
+            throw new \Exception('unexpected end of expression');
+        }
+    }
+}
