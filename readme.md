@@ -15,25 +15,20 @@ there are available.
 ```php
 <?php
 
-use function Sphpeme\{
-    get_std_env, parse, tokenize
-};
-use Sphpeme\{
-    DefineExpHandler, IfExpHandler, LambdaExpHandler, ScalarHandler, SymbolHandler
-};
+use Sphpeme\ExpHandler\DefineExpHandler;
+use Sphpeme\ExpHandler\IfExpHandler;
+use Sphpeme\ExpHandler\LambdaExpHandler;
+use Sphpeme\ExpHandler\ScalarHandler;
+use Sphpeme\ExpHandler\SymbolHandler;
+use Sphpeme\Reader;
+use function Sphpeme\get_std_env;
+
 
 require __DIR__ . '/vendor/autoload.php';
 
-// Library scheme code to update env
-$program = <<<SCHEME
-(define fib
-    (lambda (x)
-      (if (< x 3) 1
-          (+ (fib (- x 2)) (fib (- x 1))))))
-SCHEME;
-
 $env = get_std_env();
-$parsedLib = parse(tokenize($program));
+$reader = new Reader(fopen('examples/fib.scm', 'rb'));
+$parsedLib = $reader->read();
 
 // Evaluator with ORDERED expression handlers
 $eval = new \Sphpeme\Evaluator(
@@ -47,8 +42,13 @@ $eval = new \Sphpeme\Evaluator(
 // Evaluate the library, adding its definitions to our env
 $eval($parsedLib, $env);
 
+$fake = fopen('php://memory', 'w+b');
+fwrite($fake, '(fib 15)');
+rewind($fake);
+
 // Evaluate some other code, which uses the updated env
-$value = $eval(parse(tokenize('(fib 15)')), $env);
+echo $eval((new Reader($fake))->read(), $env);
+
 ```
 
 ## Tests
