@@ -9,7 +9,7 @@ use Sphpeme\Evaluator;
 use Sphpeme\ExpHandler\DefineExpHandler;
 use Sphpeme\Symbol;
 
-class DefineSpecialFormTest extends TestCase
+class DefineExpHandlerTest extends TestCase
 {
     /** @var DefineExpHandler */
     private $subj;
@@ -22,18 +22,17 @@ class DefineSpecialFormTest extends TestCase
         $this->env = $this->prophesize(Env::class);
         $this->subj = new DefineExpHandler();
 
-        $define = $this->prophesize(Symbol::class);
-        $define->__toString()->willReturn('define');
+        $define = Symbol::make('define');
         $x = $this->prophesize(Symbol::class);
         $x->__toString()->willReturn('x');
 
-        $this->exp = [$define->reveal(), $x->reveal(), 10];
+        $this->exp = [$define, $x->reveal(), 10];
 
         $this->eval = $this->prophesize(Evaluator::class);
         $this->eval->__invoke(10, Argument::type(Env::class))->willReturn(10);
     }
 
-    public function testHandlesLambda()
+    public function testHandlesDefine()
     {
         static::assertTrue($this->subj->handles($this->exp));
     }

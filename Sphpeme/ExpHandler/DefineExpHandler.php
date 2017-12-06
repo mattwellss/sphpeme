@@ -10,6 +10,13 @@ use Sphpeme\Symbol;
 
 class DefineExpHandler implements ExpHandler
 {
+    private $defineSymbol;
+
+    public function __construct()
+    {
+        $this->defineSymbol = Symbol::make('define');
+    }
+
     public function evaluate($exp, Env $env, Evaluator $evaluate)
     {
         [$_, $symbol, $exp] = $exp;
@@ -18,6 +25,6 @@ class DefineExpHandler implements ExpHandler
 
     public function handles($exp): bool
     {
-        return $exp[0] == 'define';
+        return $exp[0] === $this->defineSymbol;
     }
 }
