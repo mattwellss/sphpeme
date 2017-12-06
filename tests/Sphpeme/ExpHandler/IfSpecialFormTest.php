@@ -21,10 +21,9 @@ class IfSpecialFormTest extends TestCase
     {
         $this->env = $this->prophesize(Env::class);
         $this->subj = new IfExpHandler();
-        $if = $this->prophesize(Symbol::class);
-        $if->__toString()->willReturn('if');
+        $if = Symbol::make('if');
 
-        $this->exp = [$if->reveal(), 1 , 42, 10];
+        $this->exp = [$if, 1 , 42, 10];
         $this->eval = $this->prophesize(Evaluator::class);
         $this->eval->__invoke(1, Argument::type(Env::class))->willReturn(1);
         $this->eval->__invoke(42, Argument::type(Env::class))->willReturn(42);

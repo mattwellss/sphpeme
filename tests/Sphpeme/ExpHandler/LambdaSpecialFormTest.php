@@ -22,12 +22,11 @@ class LambdaSpecialFormTest extends TestCase
         $this->env = $this->prophesize(Env::class);
         $this->subj = new LambdaExpHandler();
 
-        $lambda = $this->prophesize(Symbol::class);
-        $lambda->__toString()->willReturn('lambda');
+        $lambda = Symbol::make('lambda');
 
         $symbol =  $this->prophesize(Symbol::class);
         $symbol->__toString()->willReturn('+');
-        $this->exp = [$lambda->reveal(), [], [$symbol->reveal(), 1, 2, 3]];
+        $this->exp = [$lambda, [], [$symbol->reveal(), 1, 2, 3]];
         $this->eval = $this->prophesize(Evaluator::class);
     }
 

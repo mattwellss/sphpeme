@@ -20,6 +20,6 @@ class LambdaExpHandler implements ExpHandler
 
     public function handles($exp): bool
     {
-        return $exp[0] == 'lambda';
+        return $exp[0] === Symbol::make('lambda');
     }
 }

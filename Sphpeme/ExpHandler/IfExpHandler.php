@@ -9,6 +9,13 @@ use Sphpeme\Symbol;
 
 class IfExpHandler implements ExpHandler
 {
+    private $ifSymbol;
+
+    public function __construct()
+    {
+        $this->ifSymbol = Symbol::make('if');
+    }
+
     public function evaluate($exp, Env $env, Evaluator $evaluate)
     {
         [$if, $test, $true, $false] = $exp;
@@ -22,6 +29,6 @@ class IfExpHandler implements ExpHandler
 
     public function handles($exp): bool
     {
-        return $exp[0] == 'if';
+        return $exp[0] === $this->ifSymbol;
     }
 }
