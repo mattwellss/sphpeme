@@ -14,44 +14,22 @@ class ReaderTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testConstructRequiresStream()
+    public function testBadStreamInput()
     {
         $notStream = false;
-        new Reader($notStream);
+        Reader::fromStream($notStream);
     }
 
-//    public function testRead()
-//    {
-//        $res = fopen('php://memory', 'w+b');
-//        fwrite($res, <<<SCHEME
-//(define value (apply + '(1 2 3)))
-//SCHEME
-//        );
-//        rewind($res);
-//
-//        $expectation = [
-//            Symbol::make('define'),
-//            Symbol::make('value'),
-//            [
-//                Symbol::make('apply'),
-//                Symbol::make('+'),
-//                [
-//                    Symbol::make('quote'),
-//                    [
-//                        new Scalar(1),
-//                        new Scalar(2),
-//                        new Scalar(3),
-//                    ]
-//                ]
-//            ]
-//        ];
-//
-//        $reader = new Reader($res);
-//        $out = $reader->read();
-//        fclose($res);
-//
-//        static::assertEquals($expectation, $out);
-//    }
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadFileInput()
+    {
+        $notAfile = tmpfile();
+        $name = stream_get_meta_data($notAfile)['uri'];
+        fclose($notAfile);
+        Reader::fromFilepath($name);
+    }
 
     /**
      * @expectedException \Exception
@@ -66,7 +44,7 @@ asdf
 SCHEME
         );
         rewind($res);
-        $reader = new Reader($res);
+        $reader = Reader::fromStream($res);
         $out = $reader->read();
         fclose($res);
     }
@@ -82,7 +60,7 @@ SCHEME
 SCHEME
         );
         rewind($res);
-        $reader = new Reader($res);
+        $reader = Reader::fromStream($res);
         $reader->read();
         fclose($res);
     }
@@ -103,10 +81,16 @@ SCHEME
         );
         rewind($res);
 
-        $reader = new Reader($res);
+        $reader = Reader::fromStream($res);
         $out = $reader->read();
         fclose($res);
 
         static::assertEquals($expectation, $out);
+    }
+
+    public function testReadFile()
+    {
+        $file = __DIR__ . '/../../examples/fib.scm';
+        static::assertInstanceOf(Reader::class, Reader::fromFilepath($file));
     }
 }

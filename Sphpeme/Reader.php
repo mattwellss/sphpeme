@@ -8,15 +8,28 @@ class Reader
     private $file;
     private $line = '';
 
-
     private $quotes;
 
-    public function __construct($file)
+    public static function fromStream($stream)
     {
-        if (!\is_resource($file) || get_resource_type($file) !== 'stream') {
+        if (!\is_resource($stream) || get_resource_type($stream) !== 'stream') {
             throw new \InvalidArgumentException('Must give me a file stream');
         }
 
+        return new static($stream);
+    }
+
+    public static function fromFilepath($filepath)
+    {
+        if (!file_exists($filepath)) {
+            throw new \InvalidArgumentException("{$filepath} does not exist or is not readable.");
+        }
+
+        return new static(fopen($filepath, 'r+b'));
+    }
+
+    private function __construct($file)
+    {
         $this->quotes = [
             '\'' => Symbol::make('quote'),
             '``' => Symbol::make('quasiquote'),
