@@ -10,6 +10,13 @@ use Sphpeme\Symbol;
 
 class LambdaExpHandler implements ExpHandler
 {
+    private $lambdaSymbol;
+
+    public function __construct()
+    {
+        $this->lambdaSymbol = Symbol::make('lambda');
+    }
+
     public function evaluate($exp, Env $env, Evaluator $evaluate)
     {
         [$lambda, $params, $body] = $exp;
@@ -20,6 +27,6 @@ class LambdaExpHandler implements ExpHandler
 
     public function handles($exp): bool
     {
-        return $exp[0] === Symbol::make('lambda');
+        return $exp[0] === $this->lambdaSymbol;
     }
 }
