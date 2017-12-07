@@ -27,7 +27,7 @@ use function Sphpeme\get_std_env;
 require __DIR__ . '/vendor/autoload.php';
 
 $env = get_std_env();
-$reader = new Reader(fopen('examples/fib.scm', 'rb'));
+$reader = Reader::fromFilepath('examples/fib.scm');
 $parsedLib = $reader->read();
 
 // Evaluator with ORDERED expression handlers
@@ -47,7 +47,7 @@ fwrite($fake, '(fib 15)');
 rewind($fake);
 
 // Evaluate some other code, which uses the updated env
-echo $eval((new Reader($fake))->read(), $env);
+echo $eval(Reader::fromStream($fake)->read(), $env);
 
 ```
 
