@@ -2,10 +2,10 @@
     "name": "sphpeme/sphpeme",
     "license": "MIT",
     "require": {
-        "php": "^7.1"
+        "php": "^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.4"
+        "phpunit/phpunit": "^6.5"
     },
     "autoload": {
         "files": [

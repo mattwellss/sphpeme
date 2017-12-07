@@ -19,7 +19,7 @@ class LambdaExpHandler implements ExpHandler
 
     public function evaluate($exp, Env $env, Evaluator $evaluate)
     {
-        [$lambda, $params, $body] = $exp;
+        list($lambda, $params, $body) = $exp;
         return function (...$args) use ($env, $body, $params, $evaluate) {
             return $evaluate($body, env_extend($env, array_combine($params, $args)));
         };

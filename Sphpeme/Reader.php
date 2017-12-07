@@ -95,7 +95,7 @@ class Reader
 
             preg_match($this->tokenizeRegexp, $this->line, $matches);
 
-            [$_, $token, $this->line] = $matches;
+            list($_, $token, $this->line) = $matches;
 
             if ($token !== ';' || $token !== '') {
                 return $token;
@@ -105,9 +105,10 @@ class Reader
 
     /**
      * @param $token
+     * @return null
      * @throws \Exception
      */
-    private function guardAgainstUnexpectedEof($token): void
+    private function guardAgainstUnexpectedEof($token)
     {
         if ($token === false) {
             throw new \Exception('unexpected eof!');
@@ -116,9 +117,10 @@ class Reader
 
     /**
      * @param $token
+     * @return null
      * @throws \Exception
      */
-    private function guardAgainstInvalidExpression($token): void
+    private function guardAgainstInvalidExpression($token)
     {
         if ($token === ')') {
             throw new \Exception('unexpected end of expression');

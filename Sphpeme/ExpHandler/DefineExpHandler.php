@@ -19,7 +19,7 @@ class DefineExpHandler implements ExpHandler
 
     public function evaluate($exp, Env $env, Evaluator $evaluate)
     {
-        [$_, $symbol, $exp] = $exp;
+        list($_, $symbol, $exp) = $exp;
         $env->$symbol = $evaluate($exp, $env);
     }
 

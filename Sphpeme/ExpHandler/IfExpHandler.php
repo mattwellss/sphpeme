@@ -18,7 +18,7 @@ class IfExpHandler implements ExpHandler
 
     public function evaluate($exp, Env $env, Evaluator $evaluate)
     {
-        [$if, $test, $true, $false] = $exp;
+        list($if, $test, $true, $false) = $exp;
 
         return $evaluate(
             $evaluate($test, $env)
