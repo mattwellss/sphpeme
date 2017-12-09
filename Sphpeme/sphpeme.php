@@ -20,8 +20,12 @@ function atom($val)
         return new Scalar(str_replace('"', '', $val));
     }
 
-    if (\is_bool($val)) {
-        return new Scalar($val);
+    if ($val === '#t') {
+        return new Scalar(true);
+    }
+
+    if ($val === '#f') {
+        return new Scalar(false);
     }
 
     return Symbol::make($val);

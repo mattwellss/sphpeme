@@ -29,8 +29,10 @@ class AtomTest extends TestCase
 
     public function testBool()
     {
-        $true = atom(true);
-        static::assertEquals(true, $true->getValue());
+        $true = atom('#t');
+        static::assertTrue($true->getValue());
+        $true = atom('#f');
+        static::assertFalse($true->getValue());
     }
 
     public function testSymbol()
