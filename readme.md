@@ -26,7 +26,7 @@ use function Sphpeme\get_std_env;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$env = get_std_env();
+$env = new \Sphpeme\Env\StdEnv();
 $reader = Reader::fromFilepath('examples/fib.scm');
 $parsedLib = $reader->read();
 
@@ -34,7 +34,7 @@ $parsedLib = $reader->read();
 $eval = new \Sphpeme\Evaluator(
     new SymbolHandler(),
     new ScalarHandler(),
-    new LambdaExpHandler(),
+    new LambdaExpHandler(new \Sphpeme\EnvExtender\AggregateEnvExtender()),
     new IfExpHandler(),
     new DefineExpHandler()
 );
@@ -67,6 +67,11 @@ While it's unlikely that sphpeme will ever exist outside the context
 of "toy," faster is better! Evaluation and tokenization are two areas
 ripe for improvement.
 
+#### Ideas
+
+ - Fewer function calls
+ - "Flattener" for envs, eliminating linear search for a match
+
 ### Features
 
 #### `let`, `let*`, etc
@@ -82,11 +87,6 @@ Better than nested `if`!!!
 #### m-m-m-macros!
 
 maybe.
-
-### Modularity
-
-The std env is pretty messy now, and should probably be separated by
-category.
 
 ## Credits
 
