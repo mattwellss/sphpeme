@@ -74,10 +74,11 @@ ripe for improvement.
 
 ### Features
 
-#### `let`, `let*`, etc
+#### `let*`, `letrec`
 
-I like using these instead of flopping around in a much of lambdas, so
+I like using these instead of flopping around in a mess of lambdas, so
 they should be added
+*n.b.* `let` is added 
 
 #### `cond`
 
