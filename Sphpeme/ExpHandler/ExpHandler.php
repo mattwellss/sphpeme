@@ -9,5 +9,5 @@ use Sphpeme\Evaluator;
 interface ExpHandler
 {
     public function handles($program): bool;
-    public function evaluate($program, Env $env, Evaluator $evaluate);
+    public function evaluate($program, Env\EnvInterface $env, Evaluator $evaluate);
 }

@@ -1,9 +1,6 @@
 <?php
-/**
- * User: mpw
- * Date: 2017-12-03 14:58 PM
- */
 
+use Prophecy\Prophecy\ObjectProphecy;
 use Sphpeme\ExpHandler\ScalarHandler;
 use Sphpeme\Scalar;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +10,7 @@ class ScalarHandlerTest extends TestCase
     /** @var ScalarHandler */
     private $subj;
 
-    /** @var \Sphpeme\Env */
+    /** @var ObjectProphecy|\Sphpeme\Env\EnvInterface */
     private $env;
 
     /** @var \Sphpeme\Evaluator */
@@ -22,16 +19,17 @@ class ScalarHandlerTest extends TestCase
     protected function setUp()
     {
         $this->subj = new ScalarHandler();
-        $this->env = new \Sphpeme\Env();
+        $this->env = $this->prophesize(\Sphpeme\Env\EnvInterface::class);
         $this->eval = new \Sphpeme\Evaluator();
     }
 
     public function testEvaluate()
     {
-        static::assertEquals('string', $this->subj->evaluate(new Scalar('string'), $this->env, $this->eval));
-        static::assertTrue($this->subj->evaluate(new Scalar(true), $this->env, $this->eval));
-        static::assertEquals(10, $this->subj->evaluate(new Scalar(10), $this->env, $this->eval));
-        static::assertEquals(1.1, $this->subj->evaluate(new Scalar(1.1), $this->env, $this->eval));
+        $revealedEnv = $this->env->reveal();
+        static::assertEquals('string', $this->subj->evaluate(new Scalar('string'), $revealedEnv, $this->eval));
+        static::assertTrue($this->subj->evaluate(new Scalar(true), $revealedEnv, $this->eval));
+        static::assertEquals(10, $this->subj->evaluate(new Scalar(10), $revealedEnv, $this->eval));
+        static::assertEquals(1.1, $this->subj->evaluate(new Scalar(1.1), $revealedEnv, $this->eval));
     }
 
     public function testHandles()

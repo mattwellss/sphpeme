@@ -1,8 +1,4 @@
 <?php
-/**
- * User: mpw
- * Date: 2017-12-04 21:37 PM
- */
 
 namespace Sphpeme;
 

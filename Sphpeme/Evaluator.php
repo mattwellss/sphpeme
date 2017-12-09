@@ -25,7 +25,7 @@ class Evaluator
         $this->handlers = $handlers;
     }
 
-    public function __invoke($exp, Env $env)
+    public function __invoke($exp, Env\EnvInterface $env)
     {
         foreach ($this->handlers as $handler) {
             if ($handler->handles($exp)) {

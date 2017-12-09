@@ -19,14 +19,14 @@ class IfSpecialFormTest extends TestCase
 
     protected function setUp()
     {
-        $this->env = $this->prophesize(Env::class);
+        $this->env = $this->prophesize(Env\EnvInterface::class);
         $this->subj = new IfExpHandler();
         $if = Symbol::make('if');
 
         $this->exp = [$if, 1 , 42, 10];
         $this->eval = $this->prophesize(Evaluator::class);
-        $this->eval->__invoke(1, Argument::type(Env::class))->willReturn(1);
-        $this->eval->__invoke(42, Argument::type(Env::class))->willReturn(42);
+        $this->eval->__invoke(1, Argument::type(Env\EnvInterface::class))->willReturn(1);
+        $this->eval->__invoke(42, Argument::type(Env\EnvInterface::class))->willReturn(42);
     }
     public function testEvaluate()
     {

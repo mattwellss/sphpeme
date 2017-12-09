@@ -20,7 +20,7 @@ class EvaluatorTest extends TestCase
 
     public function setUp()
     {
-        $this->env = $this->prophesize(Env::class);
+        $this->env = $this->prophesize(Env\EnvInterface::class);
         $this->subj = new Evaluator;
     }
 
@@ -56,7 +56,7 @@ class EvaluatorTest extends TestCase
         $special->handles(Argument::type('array'))->willReturn(true);
         $special->evaluate(
             Argument::type('array'),
-            Argument::type(Env::class),
+            Argument::type(Env\EnvInterface::class),
             Argument::type(Evaluator::class))->shouldBeCalled();
 
         $symbol = $this->prophesize(Symbol::class);

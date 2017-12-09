@@ -2,6 +2,7 @@
 
 namespace Sphpeme;
 
+use Sphpeme\Env\StdEnv;
 use Sphpeme\ExpHandler\DefineExpHandler;
 use Sphpeme\ExpHandler\IfExpHandler;
 use Sphpeme\ExpHandler\LambdaExpHandler;
@@ -10,11 +11,11 @@ use Sphpeme\ExpHandler\SymbolHandler;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$env = get_std_env();
+$env = new StdEnv();
 $eval = new Evaluator(
     new SymbolHandler(),
     new ScalarHandler(),
-    new LambdaExpHandler(),
+    new LambdaExpHandler(new EnvExtender\AggregateEnvExtender()),
     new IfExpHandler(),
     new DefineExpHandler()
 );

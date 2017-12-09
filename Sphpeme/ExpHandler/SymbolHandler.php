@@ -9,7 +9,7 @@ use Sphpeme\Symbol;
 
 class SymbolHandler implements ExpHandler
 {
-    public function evaluate($exp, Env $env, Evaluator $evaluate)
+    public function evaluate($exp, Env\EnvInterface $env, Evaluator $evaluate)
     {
         return $env->$exp;
     }

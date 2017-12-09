@@ -26,31 +26,3 @@ function atom($val)
 
     return Symbol::make($val);
 }
-
-/**
- * Extend the given env with the extension values
- *
- * @param Env $env
- * @param array $extends
- * @return Env
- */
-function env_extend(Env $env, array $extends)
-{
-    $myenv = clone $env;
-    foreach ($extends as $key => $value) {
-        $myenv->$key = $value;
-    }
-
-    return $myenv;
-}
-
-
-/**
- * Provides access to Sphpeme's std env
- *
- * @return Env
- */
-function get_std_env(): Env
-{
-    return require __DIR__ . '/stdenv.php';
-}
