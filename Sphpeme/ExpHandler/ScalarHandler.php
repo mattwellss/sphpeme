@@ -3,7 +3,7 @@
 namespace Sphpeme\ExpHandler;
 
 
-use Sphpeme\Env;
+use Sphpeme\Env\EnvInterface;
 use Sphpeme\Evaluator;
 use Sphpeme\Scalar;
 
@@ -11,11 +11,11 @@ class ScalarHandler implements ExpHandler
 {
     /**
      * @param Scalar $exp
-     * @param Env $env
+     * @param EnvInterface $env
      * @param Evaluator $evaluate
      * @return mixed
      */
-    public function evaluate($exp, Env $env, Evaluator $evaluate)
+    public function evaluate($exp, EnvInterface $env, Evaluator $evaluate)
     {
         return $exp->getValue();
     }

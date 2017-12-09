@@ -1,8 +1,4 @@
 <?php
-/**
- * User: mpw
- * Date: 2017-12-06 23:59 PM
- */
 
 namespace Env;
 
@@ -17,6 +13,12 @@ class StdEnvTest extends TestCase
         $env = new StdEnv();
         static::assertEquals(M_PI, $env->pi);
         static::assertInternalType('callable', $env->{'+'});
+    }
+
+    public function test__isset()
+    {
+        $env = new StdEnv();
+        static::assertTrue(isset($env->pi));
     }
 
     public function testAdd()
@@ -84,5 +86,42 @@ class StdEnvTest extends TestCase
         $env = new StdEnv();
         static::assertTrue($env->isEquiv(2, 2));
         static::assertFalse($env->isEquiv(2, '2'));
+    }
+
+    public function testList()
+    {
+        $env = new StdEnv();
+        static::assertEquals([1,2], $env->_list(1, 2));
+    }
+
+    public function testCar()
+    {
+        $env = new StdEnv();
+        static::assertEquals(1, $env->car([1]));
+    }
+
+    public function testCdr()
+    {
+        $env = new StdEnv();
+        static::assertEquals([2], $env->cdr([1,2]));
+    }
+
+    public function testDisplay()
+    {
+        $env = new StdEnv();
+        ob_start();
+        $env->display('hello');
+        static::assertEquals('hello', ob_get_clean());
+        ob_start();
+        $env->display([1,2,3]);
+        static::assertEquals(var_export([1,2,3], true), ob_get_clean());
+    }
+
+    public function testNewline()
+    {
+        $env = new StdEnv();
+        ob_start();
+        $env->newline();
+        static::assertEquals(PHP_EOL, ob_get_clean());
     }
 }

@@ -3,11 +3,11 @@
 namespace Sphpeme\Env;
 
 
-use Sphpeme\Env;
 
-class StdEnv extends Env
+class StdEnv implements EnvInterface
 {
     const MAPPING = [
+        '#' => '+',
         '+' => 'add',
         '-' => 'subtract',
         '*' => 'multiply',
@@ -18,20 +18,55 @@ class StdEnv extends Env
         '>=' => 'gte',
         'eq?' => 'isEqual',
         'eqv?' => 'isEquiv',
+        'list' => '_list'
     ];
 
-    public function __get($name)
+    public function __isset($prop): bool
     {
-        if (isset(static::MAPPING[$name])) {
-            return $this->__get(static::MAPPING[$name]);
+        return (bool)$this->__get($prop);
+    }
+
+    public function __get(string $prop)
+    {
+        if (isset(static::MAPPING[$prop])) {
+            return $this->__get(static::MAPPING[$prop]);
         }
 
-        return \is_callable([$this, $name])
-            ? [$this, $name]
-            : $this->$name;
+        return \is_callable([$this, $prop])
+            ? [$this, $prop]
+            : $this->$prop;
     }
 
     public $pi = M_PI;
+
+    public function _list(...$args)
+    {
+        return $args;
+    }
+
+    public function car(array $list)
+    {
+        return current($list);
+    }
+
+    public function cdr(array $list)
+    {
+        return \array_slice($list, 1);
+    }
+
+    public function display($arg)
+    {
+        if (is_scalar($arg) || method_exists($arg, '__toString')) {
+            echo $arg;
+        } else {
+            var_export($arg);
+        }
+    }
+
+    public function newline()
+    {
+        echo PHP_EOL;
+    }
 
     public function add($first, ...$rest)
     {
@@ -88,5 +123,4 @@ class StdEnv extends Env
     {
         return $a === $b;
     }
-
 }

@@ -16,7 +16,7 @@ class IfExpHandler implements ExpHandler
         $this->ifSymbol = Symbol::make('if');
     }
 
-    public function evaluate($exp, Env $env, Evaluator $evaluate)
+    public function evaluate($exp, Env\EnvInterface $env, Evaluator $evaluate)
     {
         list($if, $test, $true, $false) = $exp;
 

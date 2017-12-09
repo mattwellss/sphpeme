@@ -19,7 +19,7 @@ class DefineExpHandlerTest extends TestCase
 
     protected function setUp()
     {
-        $this->env = $this->prophesize(Env::class);
+        $this->env = $this->prophesize(Env\EnvInterface::class);
         $this->subj = new DefineExpHandler();
 
         $define = Symbol::make('define');
@@ -29,7 +29,7 @@ class DefineExpHandlerTest extends TestCase
         $this->exp = [$define, $x->reveal(), 10];
 
         $this->eval = $this->prophesize(Evaluator::class);
-        $this->eval->__invoke(10, Argument::type(Env::class))->willReturn(10);
+        $this->eval->__invoke(10, Argument::type(Env\EnvInterface::class))->willReturn(10);
     }
 
     public function testHandlesDefine()

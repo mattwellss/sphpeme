@@ -17,7 +17,7 @@ class DefineExpHandler implements ExpHandler
         $this->defineSymbol = Symbol::make('define');
     }
 
-    public function evaluate($exp, Env $env, Evaluator $evaluate)
+    public function evaluate($exp, Env\EnvInterface $env, Evaluator $evaluate)
     {
         list($_, $symbol, $exp) = $exp;
         $env->$symbol = $evaluate($exp, $env);

@@ -4,7 +4,9 @@ namespace tests\Sphpeme\Evaluator;
 
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Sphpeme\Env;
+use Sphpeme\EnvExtender;
 use Sphpeme\Evaluator;
 use Sphpeme\ExpHandler\LambdaExpHandler;
 use Sphpeme\Symbol;
@@ -19,8 +21,14 @@ class LambdaSpecialFormTest extends TestCase
 
     protected function setUp()
     {
-        $this->env = $this->prophesize(Env::class);
-        $this->subj = new LambdaExpHandler();
+        $this->env = $this->prophesize(Env\EnvInterface::class);
+        $envExtender = $this->prophesize(EnvExtender::class);
+        $envExtender
+            ->__invoke(Argument::type(Env\EnvInterface::class), Argument::type(Env\EnvInterface::class))
+            ->will(function ($args) {
+                return $args[0];
+            });
+        $this->subj = new LambdaExpHandler($envExtender->reveal());
 
         $lambda = Symbol::make('lambda');
 
