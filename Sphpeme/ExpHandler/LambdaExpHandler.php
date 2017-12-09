@@ -25,12 +25,18 @@ class LambdaExpHandler implements ExpHandler
 
     public function evaluate($exp, Env\EnvInterface $env, Evaluator $evaluate)
     {
-        list($lambda, $params, $body) = $exp;
+        list($lambda, $params) = $exp;
+        $body = \array_slice($exp, 2);
         return function (...$args) use ($env, $body, $params, $evaluate) {
             if (\count($params)) {
                 $env = ($this->envExtender)($env, new Env\SimpleEnv(array_combine($params, $args)));
             }
-            return $evaluate($body, $env);
+
+            while (\count($body) > 1) {
+                $evaluate(array_shift($body), $env);
+            }
+
+            return $evaluate(array_shift($body), $env);
         };
     }
 
