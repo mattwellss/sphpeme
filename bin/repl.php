@@ -6,6 +6,7 @@ use Sphpeme\Env\StdEnv;
 use Sphpeme\ExpHandler\DefineExpHandler;
 use Sphpeme\ExpHandler\IfExpHandler;
 use Sphpeme\ExpHandler\LambdaExpHandler;
+use Sphpeme\ExpHandler\LetHandler;
 use Sphpeme\ExpHandler\ScalarHandler;
 use Sphpeme\ExpHandler\SymbolHandler;
 
@@ -17,12 +18,22 @@ $eval = new Evaluator(
     new ScalarHandler(),
     new LambdaExpHandler(new EnvExtender\AggregateEnvExtender()),
     new IfExpHandler(),
-    new DefineExpHandler()
+    new DefineExpHandler(),
+    new LetHandler()
 );
 
 $reader = Reader::fromStream(STDIN);
-echo "\n> ";
-while ($program = $reader->read()) {
-    var_export($eval($program, $env));
-    echo PHP_EOL . '> ';
-}
+do {
+    try {
+        echo PHP_EOL . '> ';
+        $program = $reader->read();
+        if (!$program) {
+            echo 'Bye!' . PHP_EOL;
+            exit;
+        }
+        var_export($eval($program, $env));
+    } catch (\Throwable $t) {
+        echo 'Exception occured: ' . $t->getMessage() . PHP_EOL;
+    }
+} while (true);
+
