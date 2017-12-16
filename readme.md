@@ -21,7 +21,6 @@ use Sphpeme\ExpHandler\LambdaExpHandler;
 use Sphpeme\ExpHandler\ScalarHandler;
 use Sphpeme\ExpHandler\SymbolHandler;
 use Sphpeme\Reader;
-use function Sphpeme\get_std_env;
 
 
 require __DIR__ . '/vendor/autoload.php';
