@@ -10,7 +10,7 @@ class Pair
     public static function list($arg, ...$args)
     {
         if (\count($args)) {
-            return static::list(...$args)->cons($arg);
+            return static::cons($arg, static::list(...$args));
         }
 
         return new self($arg);
@@ -31,10 +31,10 @@ class Pair
         return $this->tail;
     }
 
-    public function cons($thing)
+    public static function cons($value, $pair)
     {
-        $l = new static($thing);
-        $l->tail = $this;
+        $l = new static($value);
+        $l->tail = $pair;
         return $l;
     }
 

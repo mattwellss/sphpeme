@@ -33,7 +33,7 @@ class PairTest extends TestCase
     public function testCons()
     {
         $subj = Pair::list(4);
-        static::assertEquals(5, $subj->cons(5)->car());
+        static::assertEquals(5, Pair::cons(5, $subj)->car());
     }
 
     public function testToArray()
