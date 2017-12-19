@@ -7,6 +7,7 @@ use Sphpeme\ExpHandler\DefineExpHandler;
 use Sphpeme\ExpHandler\IfExpHandler;
 use Sphpeme\ExpHandler\LambdaExpHandler;
 use Sphpeme\ExpHandler\LetHandler;
+use Sphpeme\ExpHandler\LetStarHandler;
 use Sphpeme\ExpHandler\ScalarHandler;
 use Sphpeme\ExpHandler\SymbolHandler;
 
@@ -19,7 +20,8 @@ $eval = new Evaluator(
     new LambdaExpHandler(new EnvExtender\AggregateEnvExtender()),
     new IfExpHandler(),
     new DefineExpHandler(),
-    new LetHandler()
+    new LetHandler(),
+    new LetStarHandler()
 );
 
 $reader = Reader::fromStream(STDIN);
