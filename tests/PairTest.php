@@ -38,7 +38,8 @@ class PairTest extends TestCase
 
     public function testToArray()
     {
-        $subj = Pair::list(1, 2, 3, 4, 5);
-        static::assertEquals([1, 2, 3, 4, 5], $subj->toArray());
+        $onesym = \Sphpeme\Symbol::make(1);
+        $subj = Pair::list($onesym, 2, 3, Pair::list(4, 5));
+        static::assertEquals([$onesym, 2, 3, [4, 5]], $subj->toArray());
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Sphpeme;
 
+use PHPUnit\Runner\Exception;
+
 class Reader
 {
     private $tokenizeRegexp = '/\s*(,@|[(\'`,)]|"(?:[\\].|[^\\"])*"|;.*|[^\s(\'"`,;)]*)(.*)/';
@@ -70,13 +72,44 @@ class Reader
         return atom($token);
     }
 
+    private function readExp($token)
+    {
+        $this->guardAgainstUnexpectedEof($token);
+
+        if ($token === '(') {
+            return Pair::list($this->readExp($this->nextToken()));
+        }
+
+        if ($token === ')') {
+            return null;
+        }
+
+        $read = $this->readExp($this->nextToken());
+
+        if ($read === null) {
+            return Pair::list(atom($token));
+        }
+
+        if (isset($this->quotes[$token])) {
+            return Pair::cons($this->quotes[$token], $read);
+        }
+
+        return Pair::cons(atom($token), $read);
+    }
+
     public function read()
     {
         $first = $this->nextToken();
 
-        return $first !== false
-            ? $this->readAhead($first)
+        $exp = $first !== false
+            ? $this->readExp($first)
             : false;
+
+        if ($exp) {
+            return Pair::cons($exp, $this->read());
+        }
+
+        return $exp;
     }
 
     /**

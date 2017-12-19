@@ -43,7 +43,9 @@ class Pair
         $arr = [];
         $thing = clone $this;
         do {
-            $arr[] = $thing->value;
+            $arr[] = $thing->value instanceof Pair
+                ? $thing->value->toArray()
+                : $thing->value;
             $thing = $thing->tail;
         } while ($thing);
 

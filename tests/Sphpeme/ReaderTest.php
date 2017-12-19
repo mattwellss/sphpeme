@@ -63,12 +63,9 @@ SCHEME
 
     public function testQuote()
     {
-        $expectation = [
+        $expectation = Pair::list(
             Symbol::make('quote'),
-            [
-                new Scalar(1)
-            ]
-        ];
+            Pair::list(new Scalar(1)));
 
         $res = fopen('php://memory', 'w+b');
         fwrite($res, <<<SCHEME
