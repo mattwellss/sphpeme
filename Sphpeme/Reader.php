@@ -4,7 +4,7 @@ namespace Sphpeme;
 
 class Reader
 {
-    private $tokenizeRegexp = '/\s*(,@|[(\'`,)]|"(?:[\\].|[^\\"])*"|;.*|[^\s(\'"`,;)]*)(.*)/';
+    private $tokenizeRegexp = '/\s*(,@|[(\'`,)]|"(?:[\\].|[^])+"|;.+|[^\s(\'`,;)]+)(.*)/';
     private $file;
     private $line = '';
 
@@ -32,7 +32,7 @@ class Reader
     {
         $this->quotes = [
             '\'' => Symbol::make('quote'),
-            '``' => Symbol::make('quasiquote'),
+            '`' => Symbol::make('quasiquote'),
             ',' => Symbol::make('unquote'),
             ',@' => Symbol::make('unquote-splicing'),
         ];
