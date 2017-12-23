@@ -7,20 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class StdEnvTest extends TestCase
 {
-
-    public function test__get()
-    {
-        $env = new StdEnv();
-        static::assertEquals(M_PI, $env->pi);
-        static::assertInternalType('callable', $env->{'+'});
-    }
-
-    public function test__isset()
-    {
-        $env = new StdEnv();
-        static::assertTrue(isset($env->pi));
-    }
-
     public function testAdd()
     {
         $env = new StdEnv();
