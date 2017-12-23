@@ -1,0 +1,27 @@
+build:
+    tests:
+        override:
+            -
+                command: 'vendor/bin/phpunit --coverage-clover=some-file'
+                coverage:
+                    file: 'some-file'
+                    format: 'clover'
+
+checks:
+    php: true
+
+tools:
+    php_sim: true
+    php_pdepend: true
+    php_analyzer: true
+    php_cs_fixer: true
+
+before_commands:
+    - "composer install --prefer-source"
+
+build_failure_conditions:
+    - 'issues.severity(>= MAJOR).new.exists'                    # no new major issues
+    - 'elements.rating(<= C).new.exists'                        # keep all methods B or better
+    - 'patches.label("Unused Use Statements").new.exists'       # no new unused use statements
+    - 'project.metric_change("scrutinizer.quality", < -0.25)'    # code quality cannot dip more than half a point
+    - 'project.metric_change("scrutinizer.test_coverage", < 0)' # no reduction in coverage
