@@ -3,7 +3,8 @@
 A dumb slow Scheme running inside php
 
 [![Scrutinizer Code
-Quality](https://scrutinizer-ci.com/g/mattwellss/sphpeme/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mattwellss/sphpeme/?branch=master)
+Quality](https://img.shields.io/scrutinizer/g/mattwellss/sphpeme/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/mattwellss/sphpeme/?branch=master)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/mattwellss/sphpeme/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/mattwellss/sphpeme/?branch=master)
 
 ## Usage
 
