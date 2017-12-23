@@ -21,6 +21,7 @@ use Sphpeme\ExpHandler\IfExpHandler;
 use Sphpeme\ExpHandler\LambdaExpHandler;
 use Sphpeme\ExpHandler\LetHandler;
 use Sphpeme\ExpHandler\LetStarHandler;
+use Sphpeme\ExpHandler\NamedLetHandler;
 use Sphpeme\ExpHandler\ScalarHandler;
 use Sphpeme\ExpHandler\SymbolHandler;
 use Sphpeme\Reader;
@@ -38,6 +39,7 @@ $eval = new \Sphpeme\Evaluator(
     new LambdaExpHandler(new AggregateEnvExtender()),
     new IfExpHandler(),
     new DefineExpHandler(),
+    new NamedLetHandler(),
     new LetHandler(),
     new LetStarHandler()
 );
@@ -79,15 +81,14 @@ ripe for improvement.
 
 ### Features
 
-#### `letrec`, named `let`
+#### `letrec`
 
 With the addition of `let*` and `let`, many local definition needs are
-covered. However, named `let` will be required for looping purposes.
+covered. 
 
 #### `cond`
 
 Better than nested `if`!!!
-
 
 #### m-m-m-macros!
 

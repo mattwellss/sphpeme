@@ -8,6 +8,7 @@ use Sphpeme\ExpHandler\IfExpHandler;
 use Sphpeme\ExpHandler\LambdaExpHandler;
 use Sphpeme\ExpHandler\LetHandler;
 use Sphpeme\ExpHandler\LetStarHandler;
+use Sphpeme\ExpHandler\NamedLetHandler;
 use Sphpeme\ExpHandler\ScalarHandler;
 use Sphpeme\ExpHandler\SymbolHandler;
 
@@ -20,6 +21,7 @@ $eval = new Evaluator(
     new LambdaExpHandler(new EnvExtender\AggregateEnvExtender()),
     new IfExpHandler(),
     new DefineExpHandler(),
+    new NamedLetHandler(),
     new LetHandler(),
     new LetStarHandler()
 );
