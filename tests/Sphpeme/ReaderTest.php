@@ -105,6 +105,28 @@ SCHEME
         static::assertEquals($expectation, $out);
     }
 
+    public function testTrailingWhitespace()
+    {
+        $expectation = [
+            Symbol::make('foo'),
+            Symbol::make('bar')
+        ];
+
+        $res = fopen('php://memory', 'w+b');
+        fwrite($res, <<<SCHEME
+(foo   
+  bar)
+SCHEME
+        );
+        rewind($res);
+
+        $reader = Reader::fromStream($res);
+        $out = $reader->read();
+        fclose($res);
+
+        static::assertEquals($expectation, $out);
+    }
+
     public function testReadFile()
     {
         $file = __DIR__ . '/../../examples/fib.scm';
