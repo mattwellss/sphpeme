@@ -85,7 +85,7 @@ class Reader
     public function nextToken()
     {
         while (true) {
-            if ($this->line === '') {
+            if (trim($this->line) === '') {
                 $this->line = fgets($this->file);
             }
 
