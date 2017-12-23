@@ -81,6 +81,27 @@ SCHEME
         static::assertEquals($expectation, $out);
     }
 
+    public function testDoubleQuote()
+    {
+        $expectation = [
+            Symbol::make('display'),
+            new Scalar('hello')
+        ];
+
+        $res = fopen('php://memory', 'w+b');
+        fwrite($res, <<<SCHEME
+(display "hello")
+SCHEME
+        );
+        rewind($res);
+
+        $reader = Reader::fromStream($res);
+        $out = $reader->read();
+        fclose($res);
+
+        static::assertEquals($expectation, $out);
+    }
+
     public function testReadFile()
     {
         $file = __DIR__ . '/../../examples/fib.scm';

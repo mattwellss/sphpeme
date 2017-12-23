@@ -15,39 +15,47 @@ there are available.
 ```php
 <?php
 
+use Sphpeme\EnvExtender\AggregateEnvExtender;
 use Sphpeme\ExpHandler\DefineExpHandler;
 use Sphpeme\ExpHandler\IfExpHandler;
 use Sphpeme\ExpHandler\LambdaExpHandler;
+use Sphpeme\ExpHandler\LetHandler;
+use Sphpeme\ExpHandler\LetStarHandler;
+use Sphpeme\ExpHandler\NamedLetHandler;
 use Sphpeme\ExpHandler\ScalarHandler;
 use Sphpeme\ExpHandler\SymbolHandler;
 use Sphpeme\Reader;
 
-
 require __DIR__ . '/vendor/autoload.php';
 
 $env = new \Sphpeme\Env\StdEnv();
-$reader = Reader::fromFilepath('examples/fib.scm');
+$reader = Reader::fromFilepath(__DIR__ . '/fib.scm');
 $parsedLib = $reader->read();
 
 // Evaluator with ORDERED expression handlers
 $eval = new \Sphpeme\Evaluator(
     new SymbolHandler(),
     new ScalarHandler(),
-    new LambdaExpHandler(new \Sphpeme\EnvExtender\AggregateEnvExtender()),
+    new LambdaExpHandler(new AggregateEnvExtender()),
     new IfExpHandler(),
-    new DefineExpHandler()
+    new DefineExpHandler(),
+    new NamedLetHandler(),
+    new LetHandler(),
+    new LetStarHandler()
 );
 
 // Evaluate the library, adding its definitions to our env
 $eval($parsedLib, $env);
 
+$fakeInput = '(fib 15)';
 $fake = fopen('php://memory', 'w+b');
-fwrite($fake, '(fib 15)');
+fwrite($fake, $fakeInput);
 rewind($fake);
-
 // Evaluate some other code, which uses the updated env
-echo $eval(Reader::fromStream($fake)->read(), $env);
-
+$program = Reader::fromStream($fake)->read();
+$time = microtime(true);
+$eval($program, $env);
+echo microtime(true) - $time;
 ```
 
 ## Tests
@@ -73,16 +81,14 @@ ripe for improvement.
 
 ### Features
 
-#### `let*`, `letrec`
+#### `letrec`
 
-I like using these instead of flopping around in a mess of lambdas, so
-they should be added
-*n.b.* `let` is added 
+With the addition of `let*` and `let`, many local definition needs are
+covered. 
 
 #### `cond`
 
 Better than nested `if`!!!
-
 
 #### m-m-m-macros!
 
