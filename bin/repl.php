@@ -2,6 +2,8 @@
 
 namespace Sphpeme;
 
+use Sphpeme\Env\AggregateEnv;
+use Sphpeme\Env\BoolEnv;
 use Sphpeme\Env\StdEnv;
 use Sphpeme\ExpHandler\DefineExpHandler;
 use Sphpeme\ExpHandler\IfExpHandler;
@@ -14,7 +16,7 @@ use Sphpeme\ExpHandler\SymbolHandler;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$env = new StdEnv();
+$env = new AggregateEnv(new StdEnv(), new BoolEnv());
 $eval = new Evaluator(
     new SymbolHandler(),
     new ScalarHandler(),
@@ -40,4 +42,3 @@ do {
         echo 'Exception occured: ' . $t->getMessage() . PHP_EOL;
     }
 } while (true);
-

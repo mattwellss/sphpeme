@@ -17,8 +17,6 @@ class StdEnv implements EnvInterface
         '<' => 'lt',
         '<=' => 'lte',
         '>=' => 'gte',
-        'eq?' => 'isEqual',
-        'eqv?' => 'isEquiv',
         'list' => '_list'
     ];
 
@@ -97,15 +95,5 @@ class StdEnv implements EnvInterface
     public function lte($a, $b)
     {
         return $a <= $b;
-    }
-
-    public function isEqual($a, $b)
-    {
-        return $a == $b;
-    }
-
-    public function isEquiv($a, $b)
-    {
-        return $a === $b;
     }
 }
