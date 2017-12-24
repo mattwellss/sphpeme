@@ -100,8 +100,10 @@ class Reader
             if ($token !== ';' || $token !== '') {
                 return $token;
             }
+            // @codeCoverageIgnoreStart
         }
     }
+// @codeCoverageIgnoreEnd
 
     /**
      * @param $token
