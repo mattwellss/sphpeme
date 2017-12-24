@@ -60,20 +60,6 @@ class StdEnvTest extends TestCase
         static::assertTrue($env->lte(2, 3));
     }
 
-    public function testIsEqual()
-    {
-        $env = new StdEnv();
-        static::assertTrue($env->isEqual(2, 2));
-        static::assertTrue($env->isEqual(2, '2'));
-    }
-
-    public function testIsEquiv()
-    {
-        $env = new StdEnv();
-        static::assertTrue($env->isEquiv(2, 2));
-        static::assertFalse($env->isEquiv(2, '2'));
-    }
-
     public function testList()
     {
         $env = new StdEnv();
