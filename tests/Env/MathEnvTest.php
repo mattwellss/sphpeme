@@ -138,7 +138,7 @@ class MathEnvTest extends TestCase
     public function testIsReal()
     {
         static::assertThrowable(function () {
-            $this->subj->isComplex(1);
+            $this->subj->isReal(1);
         }, \Throwable::class, null, 'Not implemented');
         static::assertEquals([$this->subj, 'isReal'], $this->subj->__get('real?'));
     }
