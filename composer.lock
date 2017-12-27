@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b07118462e131adde72bd87525a912f",
+    "content-hash": "f4f7e940539a93385533f70eb1cbccf7",
     "packages": [],
     "packages-dev": [
         {
@@ -1413,6 +1413,46 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "time": "2017-04-07T12:08:54+00:00"
+        },
+        {
+            "name": "vladahejda/phpunit-assert-exception",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/VladaHejda/PhpUnitAssertException.git",
+                "reference": "4923a6f27f2f0dad50c48bc61d718862d25f4474"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/VladaHejda/PhpUnitAssertException/zipball/4923a6f27f2f0dad50c48bc61d718862d25f4474",
+                "reference": "4923a6f27f2f0dad50c48bc61d718862d25f4474",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "phpunit/phpunit": ">=3.7.31"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Vladislav Hejda",
+                    "email": "jsem@hejdav.cz"
+                }
+            ],
+            "description": "Assert exception/throwable/error PHP Unit trait.",
+            "keywords": [
+                "phpunit"
+            ],
+            "time": "2017-01-17T21:27:08+00:00"
         },
         {
             "name": "webmozart/assert",
