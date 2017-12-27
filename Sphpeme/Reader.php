@@ -51,14 +51,14 @@ class Reader
         $this->guardAgainstInvalidExpression($token);
 
         if ($token === '(') {
-            $l = [];
+            $list = [];
             while (true) {
                 $token = $this->nextToken();
                 if ($token === ')') {
-                    return $l;
+                    return $list;
                 }
 
-                $l[] = $this->readAhead($token);
+                $list[] = $this->readAhead($token);
             }
         }
 
