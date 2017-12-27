@@ -208,7 +208,6 @@ class MathEnv implements EnvInterface
     public function isComplex($num): bool
     {
         throw new \Error('Not implemented');
-        return false;
     }
 
     /**
@@ -223,7 +222,6 @@ class MathEnv implements EnvInterface
     public function isReal($num): bool
     {
         throw new \Error('Not implemented');
-        return false;
     }
 
     /**
