@@ -5,6 +5,6 @@ namespace Sphpeme\Env;
 
 interface EnvInterface
 {
-    public function __get(string $pop);
-    public function __isset($prop): bool;
+    public function __get(string $prop);
+    public function __isset(string $prop): bool;
 }

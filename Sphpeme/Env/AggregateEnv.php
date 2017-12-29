@@ -2,8 +2,6 @@
 
 namespace Sphpeme\Env;
 
-
-
 class AggregateEnv implements EnvInterface
 {
     protected $extensions = [];
@@ -15,7 +13,7 @@ class AggregateEnv implements EnvInterface
         }
     }
 
-    public function __isset($prop): bool
+    public function __isset(string $prop): bool
     {
         foreach ($this->extensions as $extension) {
             if (isset($extension->$prop)) {

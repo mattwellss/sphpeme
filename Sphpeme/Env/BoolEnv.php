@@ -61,9 +61,10 @@ class BoolEnv implements EnvInterface
 
     /**
      * @param $arg
-     * @return bool
+     * @return boo
      */
-    public function isBool($arg)
+    public
+        function isBool($arg)
     {
         return \is_bool($arg);
     }

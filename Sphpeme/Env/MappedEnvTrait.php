@@ -2,14 +2,21 @@
 
 namespace Sphpeme\Env;
 
-
 trait MappedEnvTrait
 {
-    public function __isset($prop): bool
+    /**
+     * @param string $prop
+     * @return bool
+     */
+    public function __isset(string $prop): bool
     {
         return (bool)$this->__get($prop);
     }
 
+    /**
+     * @param string $prop
+     * @return mixed
+     */
     public function __get(string $prop)
     {
         if (isset(static::MAPPING[$prop])) {

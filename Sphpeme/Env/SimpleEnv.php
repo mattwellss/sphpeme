@@ -2,7 +2,6 @@
 
 namespace Sphpeme\Env;
 
-
 class SimpleEnv implements EnvInterface
 {
     /**
@@ -20,7 +19,7 @@ class SimpleEnv implements EnvInterface
         return $this->members[$prop];
     }
 
-    public function __isset($prop): bool
+    public function __isset(string $prop): bool
     {
         return isset($this->members[$prop]);
     }
