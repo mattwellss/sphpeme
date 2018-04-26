@@ -1,0 +1,17 @@
+before_script:
+  - composer install --no-progress
+
+tests:php70:
+  image: edbizarro/gitlab-ci-pipeline-php:7.0
+  script:
+    - vendor/bin/phpunit --coverage-text
+
+tests:php71:
+  image: edbizarro/gitlab-ci-pipeline-php:7.1
+  script:
+    - vendor/bin/phpunit --coverage-text
+
+tests:php72:
+  image: edbizarro/gitlab-ci-pipeline-php:7.2
+  script:
+    - vendor/bin/phpunit --coverage-text
