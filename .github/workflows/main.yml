@@ -3,6 +3,9 @@ name: CI
 on:
   issues:
     types: [opened]
+  pull_request:
+    branches: master
+
 jobs:
   build:
 
